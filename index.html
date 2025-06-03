@@ -1,0 +1,1637 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aurora Joalheria - Alta Joalheria</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@200;300;400;500;600&family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --pearl-white: #FEFEFE;
+            --warm-white: #F9F7F4;
+            --metallic-gold: #C9A96E;
+            --deep-gold: #B8956A;
+            --nude-rose: #F2E8E0;
+            --soft-nude: #EDE4DC;
+            --deep-black: #1A1918;
+            --charcoal: #2C2B2A;
+            --soft-grey: #8B8680;
+            --whisper-grey: #F5F3F0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--pearl-white);
+            color: var(--deep-black);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Custom SVG Icons */
+        .icon-diamond {
+            width: 24px;
+            height: 24px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .icon-large {
+            width: 48px;
+            height: 48px;
+        }
+
+        /* Elegant Cursor */
+        .cursor {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background: var(--metallic-gold);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.15s cubic-bezier(0.23, 1, 0.32, 1);
+            opacity: 0;
+        }
+
+        .cursor.active {
+            opacity: 1;
+        }
+
+        .cursor.hover {
+            width: 32px;
+            height: 32px;
+            background: rgba(201, 169, 110, 0.15);
+            border: 1px solid var(--metallic-gold);
+        }
+
+        .cursor-trail {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: var(--metallic-gold);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            opacity: 0.3;
+            transition: all 0.3s ease;
+        }
+
+        /* Refined Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(254, 254, 254, 0.90);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(201, 169, 110, 0.08);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 6%;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            position: relative;
+        }
+
+        .logo-icon::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 16px;
+            height: 16px;
+            background: var(--metallic-gold);
+            transform: translate(-50%, -50%) rotate(45deg);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .logo-icon::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 8px;
+            height: 8px;
+            background: var(--pearl-white);
+            transform: translate(-50%, -50%) rotate(45deg);
+            border-radius: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .logo-container:hover .logo-icon::before {
+            transform: translate(-50%, -50%) rotate(225deg) scale(1.1);
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: var(--deep-black);
+            letter-spacing: 3px;
+            position: relative;
+        }
+
+        .logo-text::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, var(--metallic-gold), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .logo-container:hover .logo-text::after {
+            opacity: 1;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 3.5rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--deep-black);
+            font-weight: 300;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        nav a::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -16px;
+            width: 4px;
+            height: 4px;
+            background: var(--metallic-gold);
+            border-radius: 50%;
+            transform: translateY(-50%) scale(0);
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--metallic-gold);
+            transform: translateX(8px);
+        }
+
+        nav a:hover::before {
+            transform: translateY(-50%) scale(1);
+        }
+
+        /* Hero Section Refinado */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--pearl-white) 0%, var(--whisper-grey) 50%, var(--nude-rose) 100%);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(201, 169, 110, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(201, 169, 110, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 40% 60%, rgba(201, 169, 110, 0.02) 0%, transparent 50%);
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            max-width: 900px;
+            padding: 0 2rem;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(201, 169, 110, 0.08);
+            padding: 8px 20px;
+            border-radius: 50px;
+            margin-bottom: 2rem;
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: var(--metallic-gold);
+            letter-spacing: 1px;
+            border: 1px solid rgba(201, 169, 110, 0.15);
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.3s forwards;
+        }
+
+        .hero-badge svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3.5rem, 8vw, 7rem);
+            font-weight: 200;
+            color: var(--deep-black);
+            margin-bottom: 1.5rem;
+            letter-spacing: 4px;
+            line-height: 1.1;
+            opacity: 0;
+            animation: fadeInUp 1.2s ease 0.6s forwards;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--soft-grey);
+            margin-bottom: 3rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.9s forwards;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-cta-group {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            opacity: 0;
+            animation: fadeInUp 1s ease 1.2s forwards;
+        }
+
+        .hero-cta {
+            background: var(--deep-black);
+            color: var(--pearl-white);
+            border: none;
+            padding: 1.2rem 2.5rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+            overflow: hidden;
+            border-radius: 0;
+        }
+
+        .hero-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .hero-cta:hover::before {
+            left: 100%;
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(26, 25, 24, 0.15);
+        }
+
+        .hero-cta-secondary {
+            background: transparent;
+            color: var(--deep-black);
+            border: 1px solid var(--metallic-gold);
+        }
+
+        .hero-cta-secondary:hover {
+            background: var(--metallic-gold);
+            color: var(--pearl-white);
+        }
+
+        /* Geometric Elements */
+        .geometric-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .geo-element {
+            position: absolute;
+            border: 1px solid rgba(201, 169, 110, 0.1);
+            border-radius: 50%;
+            animation: float 12s infinite ease-in-out;
+        }
+
+        .geo-element:nth-child(1) {
+            width: 120px;
+            height: 120px;
+            top: 15%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .geo-element:nth-child(2) {
+            width: 80px;
+            height: 80px;
+            top: 70%;
+            right: 15%;
+            animation-delay: 4s;
+        }
+
+        .geo-element:nth-child(3) {
+            width: 160px;
+            height: 160px;
+            top: 40%;
+            right: 25%;
+            animation-delay: 8s;
+        }
+
+        /* Collections Section Refinada */
+        .collections {
+            padding: 10rem 6% 8rem;
+            max-width: 1600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 6rem;
+            position: relative;
+        }
+
+        .section-badge {
+            display: inline-block;
+            background: rgba(201, 169, 110, 0.08);
+            padding: 6px 18px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 400;
+            color: var(--metallic-gold);
+            letter-spacing: 1px;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(201, 169, 110, 0.15);
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 300;
+            color: var(--deep-black);
+            letter-spacing: 2px;
+            margin-bottom: 2rem;
+            line-height: 1.2;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--soft-grey);
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 300;
+            line-height: 1.7;
+        }
+
+        .collections-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+            margin-top: 6rem;
+        }
+
+        .collection-card {
+            position: relative;
+            height: 600px;
+            background: var(--warm-white);
+            border-radius: 0;
+            overflow: hidden;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            border: 1px solid rgba(201, 169, 110, 0.08);
+        }
+
+        .collection-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 32px 80px rgba(26, 25, 24, 0.08);
+        }
+
+        .collection-visual {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 70%;
+            background: linear-gradient(135deg, var(--nude-rose), var(--soft-nude));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.6s ease;
+        }
+
+        .collection-card:hover .collection-visual {
+            height: 75%;
+        }
+
+        .collection-icon {
+            width: 80px;
+            height: 80px;
+            opacity: 0.6;
+            transition: all 0.6s ease;
+        }
+
+        .collection-card:hover .collection-icon {
+            opacity: 1;
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .collection-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2.5rem;
+            background: var(--warm-white);
+            transition: all 0.6s ease;
+        }
+
+        .collection-number {
+            font-size: 0.75rem;
+            color: var(--metallic-gold);
+            font-weight: 500;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+
+        .collection-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+            color: var(--deep-black);
+            letter-spacing: 1px;
+        }
+
+        .collection-desc {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--soft-grey);
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+        }
+
+        .collection-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--deep-black);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .collection-link:hover {
+            color: var(--metallic-gold);
+            transform: translateX(4px);
+        }
+
+        .collection-link svg {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.3s ease;
+        }
+
+        .collection-link:hover svg {
+            transform: translateX(4px);
+        }
+
+        /* About Section Elegante */
+        .about {
+            background: var(--deep-black);
+            color: var(--pearl-white);
+            padding: 10rem 6%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 30% 40%, rgba(201, 169, 110, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(201, 169, 110, 0.02) 0%, transparent 50%);
+            z-index: 1;
+        }
+
+        .about-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .about-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 300;
+            margin-bottom: 2rem;
+            color: var(--metallic-gold);
+            letter-spacing: 1px;
+            line-height: 1.2;
+        }
+
+        .about-highlight {
+            font-size: 1.4rem;
+            color: var(--metallic-gold);
+            font-weight: 300;
+            margin-bottom: 2.5rem;
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        .about p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            font-weight: 300;
+            color: rgba(254, 254, 254, 0.8);
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1.5rem 0;
+            border-top: 1px solid rgba(201, 169, 110, 0.2);
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: var(--metallic-gold);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: rgba(254, 254, 254, 0.7);
+            letter-spacing: 1px;
+            font-weight: 300;
+        }
+
+        .about-visual {
+            position: relative;
+            height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .visual-element {
+            position: absolute;
+            border: 1px solid rgba(201, 169, 110, 0.2);
+            border-radius: 50%;
+            transition: all 0.6s ease;
+        }
+
+        .visual-element:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            animation: rotate 20s linear infinite;
+        }
+
+        .visual-element:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            animation: rotate 15s linear infinite reverse;
+        }
+
+        .visual-element:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            background: var(--metallic-gold);
+            animation: pulse 3s infinite ease-in-out;
+        }
+
+        /* Experience Section Premium */
+        .experience {
+            padding: 10rem 6%;
+            background: var(--whisper-grey);
+            position: relative;
+        }
+
+        .experience-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-top: 6rem;
+        }
+
+        .experience-card {
+            background: var(--pearl-white);
+            padding: 3rem 2.5rem;
+            border-radius: 0;
+            border: 1px solid rgba(201, 169, 110, 0.08);
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .experience-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--metallic-gold);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.6s ease;
+        }
+
+        .experience-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .experience-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 32px 80px rgba(26, 25, 24, 0.06);
+        }
+
+        .experience-icon-container {
+            width: 64px;
+            height: 64px;
+            background: rgba(201, 169, 110, 0.08);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+            transition: all 0.4s ease;
+        }
+
+        .experience-card:hover .experience-icon-container {
+            background: var(--metallic-gold);
+            transform: scale(1.1);
+        }
+
+        .experience-card:hover .experience-icon-container svg {
+            stroke: var(--pearl-white);
+        }
+
+        .experience-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+            color: var(--deep-black);
+            letter-spacing: 0.5px;
+        }
+
+        .experience-card p {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--soft-grey);
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .experience-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            color: var(--deep-black);
+            border: 1px solid rgba(201, 169, 110, 0.3);
+            padding: 0.8rem 1.8rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 400;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .experience-btn:hover {
+            background: var(--deep-black);
+            color: var(--pearl-white);
+            border-color: var(--deep-black);
+            transform: translateY(-2px);
+        }
+
+        .experience-btn svg {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.3s ease;
+        }
+
+        .experience-btn:hover svg {
+            transform: translateX(4px);
+        }
+
+        /* Contact Section Sofisticada */
+        .contact {
+            background: var(--deep-black);
+            color: var(--pearl-white);
+            padding: 10rem 6%;
+            position: relative;
+        }
+
+        .contact-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8rem;
+        }
+
+        .contact-info h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 300;
+            margin-bottom: 2rem;
+            color: var(--metallic-gold);
+            letter-spacing: 1px;
+        }
+
+        .contact-details {
+            margin-bottom: 3rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(201, 169, 110, 0.1);
+        }
+
+        .contact-item-icon {
+            width: 24px;
+            height: 24px;
+            color: var(--metallic-gold);
+        }
+
+        .contact-item-text {
+            font-size: 1.1rem;
+            font-weight: 300;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .social-link {
+            width: 48px;
+            height: 48px;
+            background: rgba(201, 169, 110, 0.08);
+            border: 1px solid rgba(201, 169, 110, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--metallic-gold);
+            text-decoration: none;
+            transition: all 0.4s ease;
+        }
+
+        .social-link:hover {
+            background: var(--metallic-gold);
+            color: var(--pearl-white);
+            transform: translateY(-4px);
+        }
+
+        .contact-form {
+            background: rgba(254, 254, 254, 0.03);
+            padding: 3rem;
+            border: 1px solid rgba(201, 169, 110, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            color: var(--metallic-gold);
+            font-size: 0.9rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1.2rem;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(201, 169, 110, 0.2);
+            color: var(--pearl-white);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 300;
+            transition: all 0.4s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-bottom-color: var(--metallic-gold);
+            background: rgba(201, 169, 110, 0.03);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(254, 254, 254, 0.4);
+        }
+
+        .submit-btn {
+            background: var(--metallic-gold);
+            color: var(--deep-black);
+            border: none;
+            padding: 1.2rem 3rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 400;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            letter-spacing: 1px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+
+        .submit-btn:hover {
+            background: var(--deep-gold);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(201, 169, 110, 0.3);
+        }
+
+        /* Footer Minimalista */
+        footer {
+            background: var(--deep-black);
+            color: rgba(254, 254, 254, 0.6);
+            text-align: center;
+            padding: 3rem 6%;
+            border-top: 1px solid rgba(201, 169, 110, 0.1);
+            font-size: 0.9rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { 
+                transform: translateY(0) rotate(0deg); 
+                opacity: 0.1;
+            }
+            50% { 
+                transform: translateY(-30px) rotate(180deg); 
+                opacity: 0.3;
+            }
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { 
+                opacity: 0.6; 
+                transform: scale(1); 
+            }
+            50% { 
+                opacity: 1; 
+                transform: scale(1.05); 
+            }
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 20px 5%;
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            nav ul {
+                gap: 2rem;
+            }
+
+            .hero-cta-group {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .collections-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .about-content,
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 4rem;
+            }
+
+            .experience-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .about-stats {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .collections,
+            .about,
+            .experience,
+            .contact {
+                padding: 6rem 5%;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Selection Colors */
+        ::selection {
+            background: var(--metallic-gold);
+            color: var(--pearl-white);
+        }
+    </style>
+</head>
+<body>
+    <div class="cursor"></div>
+    <div class="cursor-trail"></div>
+    
+    <header>
+        <div class="header-content">
+            <div class="logo-container">
+                <div class="logo-icon"></div>
+                <div class="logo-text">AURORA JOALHERIA</div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Início</a></li>
+                    <li><a href="#collections">Coleções</a></li>
+                    <li><a href="#about">Maison</a></li>
+                    <li><a href="#experience">Ateliê</a></li>
+                    <li><a href="#contact">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="geometric-elements">
+            <div class="geo-element"></div>
+            <div class="geo-element"></div>
+            <div class="geo-element"></div>
+        </div>
+        
+        <div class="hero-content">
+            <div class="hero-badge">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M12 2L15.09 8.26L22 9L17 14L18.18 21L12 17.77L5.82 21L7 14L2 9L8.91 8.26L12 2Z"/>
+                </svg>
+                Desde 1947 • São Paulo
+            </div>
+            <h1>ALTA JOALHERIA</h1>
+            <p class="hero-subtitle">A arte de sublimar o excepcional através de criações únicas, onde cada pedra preciosa revela seu brilho eterno</p>
+            <div class="hero-cta-group">
+                <button class="hero-cta">Descubra Nossas Criações</button>
+                <button class="hero-cta hero-cta-secondary">Agende uma Consulta</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="collections" class="collections">
+        <div class="section-header">
+            <div class="section-badge">NOSSAS COLEÇÕES</div>
+            <h2 class="section-title">Criações de Exceção</h2>
+            <p class="section-subtitle">Cada coleção conta uma história única, mesclando saber-fazer ancestral e visão contemporânea para criar peças de exceção.</p>
+        </div>
+        
+        <div class="collections-grid">
+            <div class="collection-card">
+                <div class="collection-visual">
+                    <svg class="collection-icon" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1">
+                        <polygon points="50,5 65,35 95,35 73,55 80,85 50,70 20,85 27,55 5,35 35,35" fill="rgba(201, 169, 110, 0.1)"/>
+                        <circle cx="50" cy="50" r="8" fill="currentColor"/>
+                        <circle cx="50" cy="50" r="15" fill="none"/>
+                        <circle cx="50" cy="50" r="22" fill="none"/>
+                    </svg>
+                </div>
+                <div class="collection-content">
+                    <div class="collection-number">01</div>
+                    <h3 class="collection-title">Luz Celestial</h3>
+                    <p class="collection-desc">Diamantes excepcionais que capturam a luz divina, criando reflexos infinitos que dançam a cada movimento gracioso.</p>
+                    <a href="#" class="collection-link">
+                        Descobrir
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="collection-card">
+                <div class="collection-visual">
+                    <svg class="collection-icon" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1">
+                        <path d="M50 10 Q75 25, 80 50 Q75 75, 50 90 Q25 75, 20 50 Q25 25, 50 10" fill="rgba(201, 169, 110, 0.1)"/>
+                        <path d="M35 35 Q50 20, 65 35 Q50 50, 35 35"/>
+                        <path d="M35 65 Q50 50, 65 65 Q50 80, 35 65"/>
+                        <circle cx="50" cy="50" r="3" fill="currentColor"/>
+                    </svg>
+                </div>
+                <div class="collection-content">
+                    <div class="collection-number">02</div>
+                    <h3 class="collection-title">Jardim Eterno</h3>
+                    <p class="collection-desc">Inspirada pela natureza eterna, esta coleção celebra a beleza orgânica através de formas florais refinadas e delicadas.</p>
+                    <a href="#" class="collection-link">
+                        Descobrir
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="collection-card">
+                <div class="collection-visual">
+                    <svg class="collection-icon" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1">
+                        <circle cx="50" cy="50" r="35" fill="rgba(201, 169, 110, 0.1)"/>
+                        <path d="M25 50 Q50 25, 75 50 Q50 75, 25 50" fill="none"/>
+                        <circle cx="50" cy="50" r="15" fill="none"/>
+                        <circle cx="50" cy="50" r="8" fill="currentColor"/>
+                        <path d="M40 40 L60 40 M50 30 L50 70 M35 35 L65 65 M35 65 L65 35"/>
+                    </svg>
+                </div>
+                <div class="collection-content">
+                    <div class="collection-number">03</div>
+                    <h3 class="collection-title">Aurora Mística</h3>
+                    <p class="collection-desc">Peças que evocam a magia da aurora, onde o ouro precioso encontra as gemas numa harmonia celestial e misteriosa.</p>
+                    <a href="#" class="collection-link">
+                        Descobrir
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="about-content">
+            <div class="about-text">
+                <h2>A Maison Aurora</h2>
+                <p class="about-highlight">"Há mais de 75 anos, perpetuamos a arte da alta joalheria brasileira com paixão e excelência."</p>
+                <p>Fundada em 1947 no coração de São Paulo, Aurora Joalheria encarna a excelência brasileira na arte da alta joalheria. Nossa Maison se construiu sobre valores de autenticidade, criatividade e saber-fazer excepcional.</p>
+                <p>Nossos mestres artesãos, herdeiros de técnicas ancestrais, dão vida a criações únicas que transcendem o tempo. Cada peça é concebida como uma obra de arte, aliando tradição secular e visão contemporânea.</p>
+                <div class="about-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">1947</span>
+                        <span class="stat-label">Fundação</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">75+</span>
+                        <span class="stat-label">Anos de Excelência</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">∞</span>
+                        <span class="stat-label">Criações Únicas</span>
+                    </div>
+                </div>
+            </div>
+            <div class="about-visual">
+                <div class="visual-element"></div>
+                <div class="visual-element"></div>
+                <div class="visual-element"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" class="experience">
+        <div class="section-header">
+            <div class="section-badge">EXPERIÊNCIA ÚNICA</div>
+            <h2 class="section-title">A Arte da Excelência</h2>
+            <p class="section-subtitle">Descubra um universo de exceção onde cada detalhe é pensado para oferecer uma experiência inesquecível e personalizada.</p>
+        </div>
+        
+        <div class="experience-grid">
+            <div class="experience-card">
+                <div class="experience-icon-container">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M9 12L11 14L15 10"/>
+                        <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"/>
+                        <path d="M12 6V8M12 16V18M6 12H8M16 12H18"/>
+                    </svg>
+                </div>
+                <h3>Consulta Privada</h3>
+                <p>Encontre nossos especialistas em um ambiente confidencial para descobrir a peça que combina perfeitamente com você. Um momento privilegiado dedicado aos seus desejos únicos.</p>
+                <button class="experience-btn">
+                    Reservar uma consulta
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="experience-card">
+                <div class="experience-icon-container">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M12 2L13.09 8.26L22 9L17 14L18.18 21L12 17.77L5.82 21L7 14L2 9L8.91 8.26L12 2Z"/>
+                        <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                </div>
+                <h3>Criação Sob Medida</h3>
+                <p>Transforme sua visão em realidade graças à nossa equipe de designers e joalheiros de exceção. Cada criação conta sua história única.</p>
+                <button class="experience-btn">
+                    Iniciar seu projeto
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="experience-card">
+                <div class="experience-icon-container">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M3 7V17C3 18.1046 3.89543 19 5 19H19C20.1046 19 21 18.1046 21 17V7"/>
+                        <path d="M3 7L12 13L21 7"/>
+                        <path d="M8 5H16C17.1046 5 18 5.89543 18 7V7C18 8.10457 17.1046 9 16 9H8C6.89543 9 6 8.10457 6 7V7C6 5.89543 6.89543 5 8 5Z"/>
+                    </svg>
+                </div>
+                <h3>Visita ao Ateliê</h3>
+                <p>Descubra os segredos da alta joalheria em nosso ateliê paulistano. Uma imersão exclusiva no universo de nossos mestres artesãos.</p>
+                <button class="experience-btn">
+                    Agendar uma visita
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="contact-content">
+            <div class="contact-info">
+                <h2>Entre em Contato</h2>
+                
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <svg class="contact-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M21 10C21 17 12 23 12 23S3 17 3 10C3 5.02944 7.02944 1 12 1C16.9706 1 21 5.02944 21 10Z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        <div class="contact-item-text">
+                            <strong>Maison Aurora Joalheria</strong><br>
+                            Rua Oscar Freire, 1234 - Jardins, São Paulo - SP
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <svg class="contact-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M22 16.92V19.92C22 20.9681 21.2165 21.8687 20.1856 21.9925C19.9365 22.0221 19.6826 21.9942 19.45 21.92C15.4 20.59 11.69 18.22 8.9 15.43C6.11 12.64 3.74 8.93001 2.41 4.98001C2.31595 4.68042 2.30077 4.35876 2.37739 4.05162C2.45401 3.74447 2.61924 3.46596 2.85 3.25001C3.08076 3.03407 3.36814 2.89304 3.67982 2.84498C3.99151 2.79693 4.31072 2.84388 4.6 2.98001H7.6C8.11322 2.97445 8.61204 3.16006 8.99654 3.50291C9.38103 3.84577 9.62343 4.32233 9.67 4.83001C9.75 5.83001 9.94 6.82001 10.24 7.79001C10.3656 8.18394 10.3569 8.60799 10.2153 8.9959C10.0738 9.38382 9.80804 9.71591 9.46 9.94001L8.24 10.56C9.58 13.31 12.19 15.92 14.94 17.26L15.56 16.04C15.7841 15.692 16.1162 15.4262 16.5041 15.2847C16.892 15.1431 17.3161 15.1344 17.71 15.26C18.68 15.56 19.67 15.75 20.67 15.83C21.1856 15.8766 21.6693 16.1231 22.0138 16.5142C22.3584 16.9054 22.5404 17.4097 22.53 17.93L22 16.92Z"/>
+                        </svg>
+                        <div class="contact-item-text">(11) 3062-8520</div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <svg class="contact-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z"/>
+                            <polyline points="22,6 12,13 2,6"/>
+                        </svg>
+                        <div class="contact-item-text">contato@aurorajoalheria.com.br</div>
+                    </div>
+                </div>
+                
+                <div class="social-links">
+                    <a href="#" class="social-link" title="Instagram">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37Z"/>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link" title="WhatsApp">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M21 11.5C21.0034 12.8199 20.6951 14.1219 20.1 15.3C19.3944 16.7118 18.3098 17.8992 16.9674 18.7293C15.6251 19.5594 14.0782 19.9994 12.5 20C11.1801 20.0035 9.87812 19.6951 8.7 19.1L3 21L4.9 15.3C4.30493 14.1219 3.99656 12.8199 4 11.5C4.00061 9.92179 4.44061 8.37488 5.27072 7.03258C6.10083 5.69028 7.28825 4.60555 8.7 3.90003C9.87812 3.30496 11.1801 2.99659 12.5 3.00003H13C15.0843 3.11502 17.053 3.99479 18.5291 5.47089C20.0052 6.94699 20.885 8.91568 21 11V11.5Z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link" title="LinkedIn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M16 8C18.5 8 20.5 10 20.5 12.5V21H17V12.5C17 11.5 16.5 11 15.5 11C14.5 11 14 11.5 14 12.5V21H10.5V8.5H14V9.8C14.5 8.8 15.5 8 16.8 8H16Z"/>
+                            <rect x="2" y="9" width="4" height="12"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            
+            <form class="contact-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName">Nome</label>
+                        <input type="text" id="firstName" name="firstName" placeholder="Seu nome" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Sobrenome</label>
+                        <input type="text" id="lastName" name="lastName" placeholder="Seu sobrenome" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" name="email" placeholder="seu@email.com.br" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Telefone</label>
+                        <input type="tel" id="phone" name="phone" placeholder="(11) 9 9999-9999">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="subject">Assunto</label>
+                    <input type="text" id="subject" name="subject" placeholder="Motivo do seu contato" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Mensagem</label>
+                    <textarea id="message" name="message" rows="5" placeholder="Descreva seu projeto ou sua solicitação..." required></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn">Enviar sua mensagem</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Aurora Joalheria. Todos os direitos reservados. | Alta Joalheria Brasileira desde 1947</p>
+    </footer>
+
+    <script>
+        // Enhanced Cursor System
+        const cursor = document.querySelector('.cursor');
+        const cursorTrail = document.querySelector('.cursor-trail');
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+        let trailX = 0, trailY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            cursor.classList.add('active');
+        });
+
+        document.addEventListener('mouseleave', () => {
+            cursor.classList.remove('active');
+        });
+
+        function animateCursor() {
+            // Main cursor
+            cursorX += (mouseX - cursorX) * 0.15;
+            cursorY += (mouseY - cursorY) * 0.15;
+            cursor.style.left = cursorX + 'px';
+            cursor.style.top = cursorY + 'px';
+
+            // Trail cursor
+            trailX += (mouseX - trailX) * 0.05;
+            trailY += (mouseY - trailY) * 0.05;
+            cursorTrail.style.left = trailX + 'px';
+            cursorTrail.style.top = trailY + 'px';
+
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        // Enhanced hover effects
+        const interactiveElements = document.querySelectorAll('a, button, .collection-card, .experience-card, .logo-container');
+        
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.classList.add('hover');
+            });
+            
+            el.addEventListener('mouseleave', () => {
+                cursor.classList.remove('hover');
+            });
+        });
+
+        // Smooth Navigation
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                if (targetSection) {
+                    targetSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Hero CTAs
+        document.querySelector('.hero-cta').addEventListener('click', () => {
+            document.querySelector('#collections').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        });
+
+        document.querySelector('.hero-cta-secondary').addEventListener('click', () => {
+            document.querySelector('#contact').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        });
+
+        // Enhanced Parallax Effects
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            
+            // Geometric elements parallax
+            const geoElements = document.querySelectorAll('.geo-element');
+            geoElements.forEach((element, index) => {
+                const speed = (index + 1) * 0.3;
+                element.style.transform = `translateY(${scrolled * speed}px) rotate(${scrolled * 0.1}deg)`;
+            });
+
+            // Header scroll effect
+            const header = document.querySelector('header');
+            if (scrolled > 100) {
+                header.style.background = 'rgba(254, 254, 254, 0.98)';
+                header.style.borderBottom = '1px solid rgba(201, 169, 110, 0.15)';
+            } else {
+                header.style.background = 'rgba(254, 254, 254, 0.90)';
+                header.style.borderBottom = '1px solid rgba(201, 169, 110, 0.08)';
+            }
+        });
+
+        // Advanced Intersection Observer
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const fadeInObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for fade-in animations
+        document.querySelectorAll('.collection-card, .experience-card, .section-header').forEach(item => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(60px)';
+            item.style.transition = 'all 0.8s cubic-bezier(0.23, 1, 0.32, 1)';
+            fadeInObserver.observe(item);
+        });
+
+        // Enhanced Form Handling
+        document.querySelector('.contact-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const submitBtn = document.querySelector('.submit-btn');
+            const originalText = submitBtn.textContent;
+            
+            // Loading state
+            submitBtn.textContent = 'Enviando...';
+            submitBtn.disabled = true;
+            submitBtn.style.opacity = '0.7';
+            
+            // Simulate API call
+            setTimeout(() => {
+                submitBtn.textContent = 'Mensagem enviada com sucesso!';
+                submitBtn.style.background = 'var(--metallic-gold)';
+                
+                setTimeout(() => {
+                    submitBtn.textContent = originalText;
+                    submitBtn.style.background = '';
+                    submitBtn.style.opacity = '';
+                    submitBtn.disabled = false;
+                    e.target.reset();
+                }, 3000);
+            }, 2000);
+        });
+
+        // Experience buttons with enhanced feedback
+        document.querySelectorAll('.experience-btn').forEach((btn, index) => {
+            btn.addEventListener('click', () => {
+                const originalText = btn.textContent;
+                const services = ['consulta', 'criação', 'visita'];
+                const service = services[index] || 'serviço';
+                
+                btn.innerHTML = `
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M22 11.08V12C22 13.66 21.33 15.165 20.2 16.2C19.065 17.33 17.56 18 15.9 18H8.1C6.44 18 4.935 17.33 3.8 16.2C2.67 15.065 2 13.56 2 11.9V8.1C2 6.44 2.67 4.935 3.8 3.8C4.935 2.67 6.44 2 8.1 2H11"/>
+                        <polyline points="22,2 12,12 9,9"/>
+                    </svg>
+                    Solicitação enviada...
+                `;
+                btn.disabled = true;
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                    
+                    // Show success message (in a real app, this would redirect)
+                    alert(`Sua solicitação de ${service} foi enviada com sucesso! Entraremos em contato em breve.`);
+                }, 2000);
+            });
+        });
+
+        // Mobile menu enhancement
+        if (window.innerWidth <= 768) {
+            const header = document.querySelector('.header-content');
+            const nav = document.querySelector('nav');
+            
+            // Create mobile menu toggle
+            const menuToggle = document.createElement('button');
+            menuToggle.innerHTML = `
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <line x1="3" y1="6" x2="21" y2="6"/>
+                    <line x1="3" y1="12" x2="21" y2="12"/>
+                    <line x1="3" y1="18" x2="21" y2="18"/>
+                </svg>
+            `;
+            menuToggle.style.cssText = `
+                background: none;
+                border: none;
+                color: var(--deep-black);
+                padding: 0.5rem;
+                cursor: pointer;
+                display: none;
+            `;
+            
+            header.appendChild(menuToggle);
+            
+            // Show toggle on mobile
+            if (window.innerWidth <= 768) {
+                menuToggle.style.display = 'block';
+                nav.style.display = 'none';
+                
+                menuToggle.addEventListener('click', () => {
+                    nav.style.display = nav.style.display === 'none' ? 'block' : 'none';
+                });
+            }
+        }
+
+        // Performance optimization: Lazy load heavy animations
+        const heavyAnimationObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, { threshold: 0.3 });
+
+        document.querySelectorAll('.visual-element').forEach(el => {
+            heavyAnimationObserver.observe(el);
+        });
+
+        // Add subtle entrance animations for stats
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const statNumbers = entry.target.querySelectorAll('.stat-number');
+                    statNumbers.forEach((num, index) => {
+                        setTimeout(() => {
+                            num.style.opacity = '1';
+                            num.style.transform = 'translateY(0)';
+                        }, index * 200);
+                    });
+                }
+            });
+        }, { threshold: 0.5 });
+
+        const statsSection = document.querySelector('.about-stats');
+        if (statsSection) {
+            // Initially hide stats
+            statsSection.querySelectorAll('.stat-number').forEach(num => {
+                num.style.opacity = '0';
+                num.style.transform = 'translateY(20px)';
+                num.style.transition = 'all 0.6s ease';
+            });
+            statsObserver.observe(statsSection);
+        }
+    </script>
+</body>
+</html>

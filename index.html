@@ -49,6 +49,29 @@
             height: 48px;
         }
 
+        /* Responsive Icon Sizing */
+        @media (max-width: 768px) {
+            .icon-diamond {
+                width: 20px;
+                height: 20px;
+            }
+            .icon-large {
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        @media (min-width: 1400px) {
+            .icon-diamond {
+                width: 28px;
+                height: 28px;
+            }
+            .icon-large {
+                width: 56px;
+                height: 56px;
+            }
+        }
+
         /* Elegant Cursor */
         .cursor {
             position: fixed;
@@ -83,6 +106,13 @@
             z-index: 9998;
             opacity: 0.3;
             transition: all 0.3s ease;
+        }
+
+        /* Hide cursor on mobile */
+        @media (max-width: 768px) {
+            .cursor, .cursor-trail {
+                display: none;
+            }
         }
 
         /* Refined Header */
@@ -211,6 +241,37 @@
             transform: translateY(-50%) scale(1);
         }
 
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--deep-black);
+            padding: 0.5rem;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .mobile-menu-toggle span {
+            width: 25px;
+            height: 2px;
+            background: var(--deep-black);
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .mobile-menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
         /* Hero Section Refinado */
         .hero {
             height: 100vh;
@@ -277,7 +338,7 @@
         }
 
         .hero-subtitle {
-            font-size: 1.25rem;
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
             color: var(--soft-grey);
             margin-bottom: 3rem;
             font-weight: 300;
@@ -386,6 +447,39 @@
             animation-delay: 8s;
         }
 
+        /* Image Styling */
+        .section-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.6s ease;
+        }
+
+        .image-container {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .image-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(201, 169, 110, 0.1);
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+
+        .image-container:hover::after {
+            opacity: 1;
+        }
+
+        .image-container:hover .section-image {
+            transform: scale(1.05);
+        }
+
         /* Collections Section Refinada */
         .collections {
             padding: 10rem 6% 8rem;
@@ -424,7 +518,7 @@
         }
 
         .section-subtitle {
-            font-size: 1.1rem;
+            font-size: clamp(1rem, 2vw, 1.1rem);
             color: var(--soft-grey);
             max-width: 600px;
             margin: 0 auto;
@@ -434,7 +528,7 @@
 
         .collections-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 3rem;
             margin-top: 6rem;
         }
@@ -465,16 +559,41 @@
             align-items: center;
             justify-content: center;
             transition: all 0.6s ease;
+            background-image: url('https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=500&h=400&fit=crop&crop=center');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .collection-card:nth-child(2) .collection-visual {
+            background-image: url('https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=500&h=400&fit=crop&crop=center');
+        }
+
+        .collection-card:nth-child(3) .collection-visual {
+            background-image: url('https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500&h=400&fit=crop&crop=center');
         }
 
         .collection-card:hover .collection-visual {
             height: 75%;
         }
 
+        .collection-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(201, 169, 110, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
         .collection-icon {
             width: 80px;
             height: 80px;
-            opacity: 0.6;
+            opacity: 0.8;
+            color: var(--pearl-white);
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
             transition: all 0.6s ease;
         }
 
@@ -545,6 +664,358 @@
             transform: translateX(4px);
         }
 
+        /* Why Choose Us Section */
+        .why-choose {
+            padding: 10rem 6%;
+            background: var(--whisper-grey);
+            position: relative;
+        }
+
+        .why-choose-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 6rem;
+        }
+
+        .why-card {
+            background: var(--pearl-white);
+            padding: 3rem 2.5rem;
+            border-radius: 0;
+            border: 1px solid rgba(201, 169, 110, 0.08);
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .why-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--metallic-gold);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.6s ease;
+        }
+
+        .why-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .why-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 32px 80px rgba(26, 25, 24, 0.06);
+        }
+
+        .why-icon-container {
+            width: 80px;
+            height: 80px;
+            background: rgba(201, 169, 110, 0.08);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            transition: all 0.4s ease;
+        }
+
+        .why-card:hover .why-icon-container {
+            background: var(--metallic-gold);
+            transform: scale(1.1);
+        }
+
+        .why-card:hover .why-icon-container svg {
+            stroke: var(--pearl-white);
+        }
+
+        .why-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.3rem, 2vw, 1.6rem);
+            font-weight: 400;
+            margin-bottom: 1rem;
+            color: var(--deep-black);
+            letter-spacing: 0.5px;
+        }
+
+        .why-card p {
+            font-size: clamp(0.9rem, 1.5vw, 1rem);
+            line-height: 1.7;
+            color: var(--soft-grey);
+            font-weight: 300;
+        }
+
+        /* Tips Section */
+        .tips {
+            padding: 10rem 6% 8rem;
+            max-width: 1600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin-top: 6rem;
+        }
+
+        .tip-card {
+            background: var(--warm-white);
+            border: 1px solid rgba(201, 169, 110, 0.08);
+            overflow: hidden;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+            display: grid;
+            grid-template-rows: 200px 1fr;
+        }
+
+        .tip-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 32px 80px rgba(26, 25, 24, 0.08);
+        }
+
+        .tip-image {
+            width: 100%;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .tip-card:nth-child(1) .tip-image {
+            background-image: url('https://images.unsplash.com/photo-1611955167811-4711904bb9f8?w=400&h=200&fit=crop&crop=center');
+        }
+
+        .tip-card:nth-child(2) .tip-image {
+            background-image: url('https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=400&h=200&fit=crop&crop=center');
+        }
+
+        .tip-card:nth-child(3) .tip-image {
+            background-image: url('https://images.unsplash.com/photo-1506630448388-4e683c67ddb0?w=400&h=200&fit=crop&crop=center');
+        }
+
+        .tip-card:nth-child(4) .tip-image {
+            background-image: url('https://images.unsplash.com/photo-1594897030264-ab7d87efc473?w=400&h=200&fit=crop&crop=center');
+        }
+
+        .tip-card:nth-child(5) .tip-image {
+            background-image: url('https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=200&fit=crop&crop=center');
+        }
+
+        .tip-card:nth-child(6) .tip-image {
+            background-image: url('https://images.unsplash.com/photo-1565206077212-5d32ae5b0ac8?w=400&h=200&fit=crop&crop=center');
+        }
+
+        .tip-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(201, 169, 110, 0.3), transparent);
+        }
+
+        .tip-content-wrapper {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .tip-header {
+            margin-bottom: 1rem;
+        }
+
+        .tip-category {
+            font-size: 0.75rem;
+            color: var(--metallic-gold);
+            font-weight: 500;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .tip-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.2rem, 2vw, 1.4rem);
+            font-weight: 400;
+            color: var(--deep-black);
+            letter-spacing: 0.5px;
+            margin-bottom: 1rem;
+        }
+
+        .tip-description {
+            font-size: clamp(0.9rem, 1.5vw, 1rem);
+            line-height: 1.7;
+            color: var(--soft-grey);
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+        }
+
+        .tip-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--deep-black);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            margin-top: auto;
+        }
+
+        .tip-link:hover {
+            color: var(--metallic-gold);
+            transform: translateX(4px);
+        }
+
+        .tip-link svg {
+            width: 14px;
+            height: 14px;
+            transition: transform 0.3s ease;
+        }
+
+        .tip-link:hover svg {
+            transform: translateX(3px);
+        }
+
+        /* Differentials Section */
+        .differentials {
+            background: var(--deep-black);
+            color: var(--pearl-white);
+            padding: 10rem 6%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .differentials::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 30% 40%, rgba(201, 169, 110, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(201, 169, 110, 0.02) 0%, transparent 50%);
+            z-index: 1;
+        }
+
+        .differentials-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .differentials-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8rem;
+            margin-top: 6rem;
+        }
+
+        .differential-item {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+            border-bottom: 1px solid rgba(201, 169, 110, 0.1);
+            transition: all 0.4s ease;
+        }
+
+        .differential-item:hover {
+            padding-left: 1rem;
+            border-bottom-color: var(--metallic-gold);
+        }
+
+        .differential-number {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 3vw, 2.5rem);
+            font-weight: 300;
+            color: var(--metallic-gold);
+            min-width: 80px;
+            opacity: 0.7;
+            transition: all 0.4s ease;
+        }
+
+        .differential-item:hover .differential-number {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        .differential-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.3rem, 2vw, 1.5rem);
+            font-weight: 400;
+            margin-bottom: 1rem;
+            color: var(--metallic-gold);
+            letter-spacing: 0.5px;
+        }
+
+        .differential-content p {
+            font-size: clamp(0.9rem, 1.5vw, 1rem);
+            line-height: 1.7;
+            color: rgba(254, 254, 254, 0.8);
+            font-weight: 300;
+        }
+
+        .differentials-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background-image: url('https://images.unsplash.com/photo-1594736797933-d0401ba4bef6?w=500&h=600&fit=crop&crop=center');
+            background-size: cover;
+            background-position: center;
+            border-radius: 0;
+            overflow: hidden;
+        }
+
+        .differentials-visual::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(26, 25, 24, 0.4);
+        }
+
+        .differential-visual-element {
+            position: absolute;
+            border: 1px solid rgba(201, 169, 110, 0.3);
+            border-radius: 50%;
+            transition: all 0.6s ease;
+            z-index: 3;
+        }
+
+        .differential-visual-element:nth-child(1) {
+            width: 200px;
+            height: 200px;
+            animation: rotate 25s linear infinite;
+        }
+
+        .differential-visual-element:nth-child(2) {
+            width: 300px;
+            height: 300px;
+            animation: rotate 30s linear infinite reverse;
+        }
+
+        .differential-visual-element:nth-child(3) {
+            width: 120px;
+            height: 120px;
+            background: rgba(201, 169, 110, 0.2);
+            animation: pulse 4s infinite ease-in-out;
+        }
+
         /* About Section Elegante */
         .about {
             background: var(--deep-black);
@@ -589,7 +1060,7 @@
         }
 
         .about-highlight {
-            font-size: 1.4rem;
+            font-size: clamp(1.2rem, 2.5vw, 1.4rem);
             color: var(--metallic-gold);
             font-weight: 300;
             margin-bottom: 2.5rem;
@@ -598,7 +1069,7 @@
         }
 
         .about p {
-            font-size: 1.1rem;
+            font-size: clamp(1rem, 1.8vw, 1.1rem);
             line-height: 1.8;
             margin-bottom: 2rem;
             font-weight: 300;
@@ -620,7 +1091,7 @@
 
         .stat-number {
             font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
+            font-size: clamp(2rem, 3vw, 2.5rem);
             font-weight: 300;
             color: var(--metallic-gold);
             display: block;
@@ -628,7 +1099,7 @@
         }
 
         .stat-label {
-            font-size: 0.9rem;
+            font-size: clamp(0.8rem, 1.2vw, 0.9rem);
             color: rgba(254, 254, 254, 0.7);
             letter-spacing: 1px;
             font-weight: 300;
@@ -637,34 +1108,56 @@
         .about-visual {
             position: relative;
             height: 600px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            background-image: url('https://images.unsplash.com/photo-1576662712957-9c79ae1280f8?w=600&h=600&fit=crop&crop=center');
+            background-size: cover;
+            background-position: center;
+            border-radius: 0;
+            overflow: hidden;
+        }
+
+        .about-visual::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(26, 25, 24, 0.3);
         }
 
         .visual-element {
             position: absolute;
-            border: 1px solid rgba(201, 169, 110, 0.2);
+            border: 1px solid rgba(201, 169, 110, 0.4);
             border-radius: 50%;
             transition: all 0.6s ease;
+            z-index: 3;
         }
 
         .visual-element:nth-child(1) {
             width: 300px;
             height: 300px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             animation: rotate 20s linear infinite;
         }
 
         .visual-element:nth-child(2) {
             width: 200px;
             height: 200px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             animation: rotate 15s linear infinite reverse;
         }
 
         .visual-element:nth-child(3) {
             width: 100px;
             height: 100px;
-            background: var(--metallic-gold);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(201, 169, 110, 0.3);
             animation: pulse 3s infinite ease-in-out;
         }
 
@@ -739,7 +1232,7 @@
 
         .experience-card h3 {
             font-family: 'Playfair Display', serif;
-            font-size: 1.6rem;
+            font-size: clamp(1.4rem, 2vw, 1.6rem);
             font-weight: 400;
             margin-bottom: 1rem;
             color: var(--deep-black);
@@ -747,7 +1240,7 @@
         }
 
         .experience-card p {
-            font-size: 1rem;
+            font-size: clamp(0.9rem, 1.5vw, 1rem);
             line-height: 1.7;
             color: var(--soft-grey);
             margin-bottom: 2rem;
@@ -829,10 +1322,11 @@
             width: 24px;
             height: 24px;
             color: var(--metallic-gold);
+            flex-shrink: 0;
         }
 
         .contact-item-text {
-            font-size: 1.1rem;
+            font-size: clamp(1rem, 1.8vw, 1.1rem);
             font-weight: 300;
         }
 
@@ -959,7 +1453,7 @@
             text-align: center;
             padding: 3rem 6%;
             border-top: 1px solid rgba(201, 169, 110, 0.1);
-            font-size: 0.9rem;
+            font-size: clamp(0.8rem, 1.2vw, 0.9rem);
             font-weight: 300;
             letter-spacing: 1px;
         }
@@ -1006,13 +1500,67 @@
         /* Mobile Responsiveness */
         @media (max-width: 768px) {
             .header-content {
-                padding: 20px 5%;
-                flex-direction: column;
-                gap: 1.5rem;
+                padding: 16px 5%;
+                position: relative;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            nav {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(254, 254, 254, 0.98);
+                backdrop-filter: blur(20px);
+                border-top: 1px solid rgba(201, 169, 110, 0.15);
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+            }
+
+            nav.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
             }
 
             nav ul {
-                gap: 2rem;
+                flex-direction: column;
+                gap: 0;
+                padding: 2rem 5%;
+            }
+
+            nav li {
+                border-bottom: 1px solid rgba(201, 169, 110, 0.1);
+            }
+
+            nav a {
+                display: block;
+                padding: 1rem 0;
+                font-size: 1rem;
+            }
+
+            .logo-text {
+                font-size: 1.2rem;
+                letter-spacing: 2px;
+            }
+
+            .logo-icon {
+                width: 24px;
+                height: 24px;
+            }
+
+            .hero {
+                min-height: 100vh;
+                padding: 120px 0 60px;
+            }
+
+            .hero-content {
+                padding: 0 1rem;
             }
 
             .hero-cta-group {
@@ -1021,40 +1569,206 @@
                 gap: 1rem;
             }
 
-            .collections-grid {
+            .hero-cta,
+            .hero-cta-secondary {
+                padding: 1rem 2rem;
+                font-size: 0.9rem;
+                width: 100%;
+                max-width: 280px;
+            }
+
+            .collections-grid,
+            .tips-grid,
+            .why-choose-grid,
+            .experience-grid {
                 grid-template-columns: 1fr;
                 gap: 2rem;
+                margin-top: 4rem;
+            }
+
+            .collection-card {
+                height: 500px;
+            }
+
+            .collection-content {
+                padding: 2rem;
+            }
+
+            .collection-title {
+                font-size: 1.5rem;
             }
 
             .about-content,
-            .contact-content {
+            .contact-content,
+            .differentials-grid {
                 grid-template-columns: 1fr;
                 gap: 4rem;
             }
 
-            .experience-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
+            .about-visual {
+                height: 400px;
             }
 
             .form-row {
                 grid-template-columns: 1fr;
+                gap: 0;
             }
 
             .about-stats {
                 grid-template-columns: 1fr;
-                gap: 1rem;
+                gap: 1.5rem;
             }
 
             .collections,
             .about,
             .experience,
-            .contact {
+            .contact,
+            .tips,
+            .why-choose,
+            .differentials {
                 padding: 6rem 5%;
             }
 
-            .section-title {
-                font-size: 2.5rem;
+            .section-header {
+                margin-bottom: 4rem;
+            }
+
+            .differential-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            .differential-number {
+                min-width: auto;
+            }
+
+            .differentials-visual {
+                height: 300px;
+                margin-top: 2rem;
+            }
+
+            .tip-card {
+                grid-template-rows: 150px 1fr;
+            }
+
+            .tip-image {
+                height: 150px;
+            }
+
+            .tip-content-wrapper {
+                padding: 1.5rem;
+            }
+
+            .why-icon-container {
+                width: 60px;
+                height: 60px;
+            }
+
+            .experience-icon-container {
+                width: 50px;
+                height: 50px;
+            }
+
+            .contact-form {
+                padding: 2rem;
+            }
+
+            .geo-element {
+                display: none;
+            }
+        }
+
+        /* Tablet Responsiveness */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .header-content {
+                padding: 20px 4%;
+            }
+
+            nav ul {
+                gap: 2.5rem;
+            }
+
+            .collections-grid,
+            .tips-grid,
+            .why-choose-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .experience-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+
+            .collections,
+            .about,
+            .experience,
+            .contact,
+            .tips,
+            .why-choose,
+            .differentials {
+                padding: 8rem 4%;
+            }
+        }
+
+        /* Large Screen Responsiveness */
+        @media (min-width: 1400px) {
+            .header-content {
+                padding: 28px 8%;
+            }
+
+            .collections,
+            .about,
+            .experience,
+            .contact,
+            .tips,
+            .why-choose,
+            .differentials {
+                padding: 12rem 8%;
+            }
+
+            .collections-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 4rem;
+            }
+
+            .tips-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 3rem;
+            }
+
+            .why-choose-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 4rem;
+            }
+
+            .section-header {
+                margin-bottom: 8rem;
+            }
+
+            .hero-content {
+                max-width: 1100px;
+            }
+
+            .about-visual {
+                height: 700px;
+            }
+
+            .differentials-visual {
+                height: 600px;
+            }
+        }
+
+        /* Extra Large Screens */
+        @media (min-width: 1800px) {
+            .collections-grid {
+                max-width: 1800px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .tips-grid,
+            .why-choose-grid {
+                grid-template-columns: repeat(4, 1fr);
             }
         }
 
@@ -1068,6 +1782,42 @@
             background: var(--metallic-gold);
             color: var(--pearl-white);
         }
+
+        /* Loading States */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        /* Focus States for Accessibility */
+        button:focus,
+        input:focus,
+        textarea:focus,
+        a:focus {
+            outline: 2px solid var(--metallic-gold);
+            outline-offset: 2px;
+        }
+
+        /* Print Styles */
+        @media print {
+            .cursor,
+            .cursor-trail,
+            .geometric-elements,
+            .mobile-menu-toggle {
+                display: none;
+            }
+            
+            header {
+                position: static;
+                background: white;
+                border-bottom: 1px solid black;
+            }
+            
+            .hero {
+                height: auto;
+                min-height: 50vh;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1080,15 +1830,23 @@
                 <div class="logo-icon"></div>
                 <div class="logo-text">AURORA JOALHERIA</div>
             </div>
-            <nav>
+            <nav id="nav">
                 <ul>
                     <li><a href="#home">Início</a></li>
                     <li><a href="#collections">Coleções</a></li>
+                    <li><a href="#why-choose">Vantagens</a></li>
+                    <li><a href="#tips">Dicas</a></li>
+                    <li><a href="#differentials">Diferenciais</a></li>
                     <li><a href="#about">Maison</a></li>
                     <li><a href="#experience">Ateliê</a></li>
                     <li><a href="#contact">Contato</a></li>
                 </ul>
             </nav>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </header>
 
@@ -1125,12 +1883,14 @@
         <div class="collections-grid">
             <div class="collection-card">
                 <div class="collection-visual">
-                    <svg class="collection-icon" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1">
-                        <polygon points="50,5 65,35 95,35 73,55 80,85 50,70 20,85 27,55 5,35 35,35" fill="rgba(201, 169, 110, 0.1)"/>
-                        <circle cx="50" cy="50" r="8" fill="currentColor"/>
-                        <circle cx="50" cy="50" r="15" fill="none"/>
-                        <circle cx="50" cy="50" r="22" fill="none"/>
-                    </svg>
+                    <div class="collection-overlay">
+                        <svg class="collection-icon" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1">
+                            <polygon points="50,5 65,35 95,35 73,55 80,85 50,70 20,85 27,55 5,35 35,35" fill="rgba(201, 169, 110, 0.1)"/>
+                            <circle cx="50" cy="50" r="8" fill="currentColor"/>
+                            <circle cx="50" cy="50" r="15" fill="none"/>
+                            <circle cx="50" cy="50" r="22" fill="none"/>
+                        </svg>
+                    </div>
                 </div>
                 <div class="collection-content">
                     <div class="collection-number">01</div>
@@ -1147,12 +1907,14 @@
             
             <div class="collection-card">
                 <div class="collection-visual">
-                    <svg class="collection-icon" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1">
-                        <path d="M50 10 Q75 25, 80 50 Q75 75, 50 90 Q25 75, 20 50 Q25 25, 50 10" fill="rgba(201, 169, 110, 0.1)"/>
-                        <path d="M35 35 Q50 20, 65 35 Q50 50, 35 35"/>
-                        <path d="M35 65 Q50 50, 65 65 Q50 80, 35 65"/>
-                        <circle cx="50" cy="50" r="3" fill="currentColor"/>
-                    </svg>
+                    <div class="collection-overlay">
+                        <svg class="collection-icon" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1">
+                            <path d="M50 10 Q75 25, 80 50 Q75 75, 50 90 Q25 75, 20 50 Q25 25, 50 10" fill="rgba(201, 169, 110, 0.1)"/>
+                            <path d="M35 35 Q50 20, 65 35 Q50 50, 35 35"/>
+                            <path d="M35 65 Q50 50, 65 65 Q50 80, 35 65"/>
+                            <circle cx="50" cy="50" r="3" fill="currentColor"/>
+                        </svg>
+                    </div>
                 </div>
                 <div class="collection-content">
                     <div class="collection-number">02</div>
@@ -1169,13 +1931,15 @@
             
             <div class="collection-card">
                 <div class="collection-visual">
-                    <svg class="collection-icon" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1">
-                        <circle cx="50" cy="50" r="35" fill="rgba(201, 169, 110, 0.1)"/>
-                        <path d="M25 50 Q50 25, 75 50 Q50 75, 25 50" fill="none"/>
-                        <circle cx="50" cy="50" r="15" fill="none"/>
-                        <circle cx="50" cy="50" r="8" fill="currentColor"/>
-                        <path d="M40 40 L60 40 M50 30 L50 70 M35 35 L65 65 M35 65 L65 35"/>
-                    </svg>
+                    <div class="collection-overlay">
+                        <svg class="collection-icon" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1">
+                            <circle cx="50" cy="50" r="35" fill="rgba(201, 169, 110, 0.1)"/>
+                            <path d="M25 50 Q50 25, 75 50 Q50 75, 25 50" fill="none"/>
+                            <circle cx="50" cy="50" r="15" fill="none"/>
+                            <circle cx="50" cy="50" r="8" fill="currentColor"/>
+                            <path d="M40 40 L60 40 M50 30 L50 70 M35 35 L65 65 M35 65 L65 35"/>
+                        </svg>
+                    </div>
                 </div>
                 <div class="collection-content">
                     <div class="collection-number">03</div>
@@ -1187,6 +1951,247 @@
                             <path d="M7 17L17 7M17 7H7M17 7V17"/>
                         </svg>
                     </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="why-choose" class="why-choose">
+        <div class="section-header">
+            <div class="section-badge">EXCELÊNCIA RECONHECIDA</div>
+            <h2 class="section-title">Por que Escolher Aurora</h2>
+            <p class="section-subtitle">Descubra os motivos que fazem da Aurora Joalheria a escolha preferida de clientes exigentes em busca da perfeição.</p>
+        </div>
+        
+        <div class="why-choose-grid">
+            <div class="why-card">
+                <div class="why-icon-container">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M12 2L13.09 8.26L22 9L17 14L18.18 21L12 17.77L5.82 21L7 14L2 9L8.91 8.26L12 2Z"/>
+                        <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                </div>
+                <h3>Tradição Centenária</h3>
+                <p>Mais de 75 anos de excelência na alta joalheria brasileira, transmitindo técnicas ancestrais de geração em geração para criar peças verdadeiramente excepcionais.</p>
+            </div>
+            
+            <div class="why-card">
+                <div class="why-icon-container">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M12 15C15.866 15 19 11.866 19 8C19 4.13401 15.866 1 12 1C8.13401 1 5 4.13401 5 8C5 11.866 8.13401 15 12 15Z"/>
+                        <path d="M8.21 13.89L7 23L12 20L17 23L15.79 13.88"/>
+                    </svg>
+                </div>
+                <h3>Gemas Selecionadas</h3>
+                <p>Apenas as gemas mais raras e preciosas do mundo chegam aos nossos ateliês. Cada pedra é cuidadosamente selecionada por especialistas certificados.</p>
+            </div>
+            
+            <div class="why-card">
+                <div class="why-icon-container">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M20 7L12 3L4 7L12 11L20 7Z"/>
+                        <path d="M4 7V17L12 21L20 17V7"/>
+                        <path d="M12 11V21"/>
+                    </svg>
+                </div>
+                <h3>Criação Exclusiva</h3>
+                <p>Cada peça Aurora é única e feita sob medida. Nossos designers trabalham intimamente com você para dar vida às suas visões mais audaciosas.</p>
+            </div>
+            
+            <div class="why-card">
+                <div class="why-icon-container">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M9 12L11 14L15 10"/>
+                        <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"/>
+                    </svg>
+                </div>
+                <h3>Garantia Vitalícia</h3>
+                <p>Compromisso total com a qualidade. Oferecemos garantia vitalícia em todas as nossas criações, incluindo manutenção e restauração quando necessário.</p>
+            </div>
+            
+            <div class="why-card">
+                <div class="why-icon-container">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M16 4H18C19.1046 4 20 4.89543 20 6V18C20 19.1046 19.1046 20 18 20H6C4.89543 20 4 19.1046 4 18V6C4 4.89543 4.89543 4 6 4H8"/>
+                        <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+                        <path d="M9 14L11 16L15 12"/>
+                    </svg>
+                </div>
+                <h3>Certificação Internacional</h3>
+                <p>Todas as nossas gemas possuem certificação gemológica internacional, garantindo autenticidade, procedência ética e valor de investimento.</p>
+            </div>
+            
+            <div class="why-card">
+                <div class="why-icon-container">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M22 12H18L15 21L9 3L6 12H2"/>
+                    </svg>
+                </div>
+                <h3>Atendimento VIP</h3>
+                <p>Experiência personalizada e exclusiva em cada visita. Nossos consultores especializados oferecem atendimento privado em ambiente luxuoso e discreto.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="tips" class="tips">
+        <div class="section-header">
+            <div class="section-badge">EXPERTISE COMPARTILHADA</div>
+            <h2 class="section-title">Dicas de Especialistas</h2>
+            <p class="section-subtitle">Conselhos valiosos dos nossos mestres joalheiros para preservar, valorizar e desfrutar ao máximo de suas joias preciosas.</p>
+        </div>
+        
+        <div class="tips-grid">
+            <div class="tip-card">
+                <div class="tip-image"></div>
+                <div class="tip-content-wrapper">
+                    <div class="tip-header">
+                        <div class="tip-category">CUIDADOS DIÁRIOS</div>
+                        <h3 class="tip-title">Manutenção Adequada</h3>
+                    </div>
+                    <p class="tip-description">Aprenda as técnicas corretas de limpeza e armazenamento para manter o brilho excepcional de suas joias. Pequenos cuidados diários garantem beleza duradoura.</p>
+                    <a href="#" class="tip-link">
+                        Ler mais
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="tip-card">
+                <div class="tip-image"></div>
+                <div class="tip-content-wrapper">
+                    <div class="tip-header">
+                        <div class="tip-category">TENDÊNCIAS</div>
+                        <h3 class="tip-title">Tendências 2025</h3>
+                    </div>
+                    <p class="tip-description">Descubra as principais tendências em alta joalheria para este ano. Formas orgânicas, metais mistos e gemas coloridas dominam as passarelas internacionais.</p>
+                    <a href="#" class="tip-link">
+                        Explorar tendências
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="tip-card">
+                <div class="tip-image"></div>
+                <div class="tip-content-wrapper">
+                    <div class="tip-header">
+                        <div class="tip-category">INVESTIMENTO</div>
+                        <h3 class="tip-title">Joias como Investimento</h3>
+                    </div>
+                    <p class="tip-description">Entenda como selecionar peças que combinam beleza e valorização. Nossos especialistas revelam os critérios para escolhas inteligentes e duradouras.</p>
+                    <a href="#" class="tip-link">
+                        Guia de investimento
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="tip-card">
+                <div class="tip-image"></div>
+                <div class="tip-content-wrapper">
+                    <div class="tip-header">
+                        <div class="tip-category">PERSONALIZAÇÃO</div>
+                        <h3 class="tip-title">Criação Sob Medida</h3>
+                    </div>
+                    <p class="tip-description">O processo completo de criar uma joia única, desde a concepção inicial até a entrega final. Cada etapa é cuidadosamente executada para perfeição absoluta.</p>
+                    <a href="#" class="tip-link">
+                        Processo criativo
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="tip-card">
+                <div class="tip-image"></div>
+                <div class="tip-content-wrapper">
+                    <div class="tip-header">
+                        <div class="tip-category">AUTENTICIDADE</div>
+                        <h3 class="tip-title">Identificar Qualidade</h3>
+                    </div>
+                    <p class="tip-description">Aprenda a reconhecer os sinais de uma joia de alta qualidade. Técnicas para avaliar lapidação, pureza e autenticidade de gemas e metais preciosos.</p>
+                    <a href="#" class="tip-link">
+                        Critérios de qualidade
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="tip-card">
+                <div class="tip-image"></div>
+                <div class="tip-content-wrapper">
+                    <div class="tip-header">
+                        <div class="tip-category">OCASIÕES ESPECIAIS</div>
+                        <h3 class="tip-title">Escolha Perfeita</h3>
+                    </div>
+                    <p class="tip-description">Guia completo para selecionar a joia ideal para cada momento especial. Do noivado aos aniversários, cada ocasião merece uma escolha memorável e significativa.</p>
+                    <a href="#" class="tip-link">
+                        Guia de ocasiões
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="differentials" class="differentials">
+        <div class="differentials-content">
+            <div class="section-header">
+                <div class="section-badge">NOSSOS DIFERENCIAIS</div>
+                <h2 class="section-title">O que nos Torna Únicos</h2>
+                <p class="section-subtitle">Descubra os elementos distintivos que posicionam Aurora Joalheria como referência absoluta em alta joalheria no Brasil.</p>
+            </div>
+            
+            <div class="differentials-grid">
+                <div class="differentials-list">
+                    <div class="differential-item">
+                        <div class="differential-number">01</div>
+                        <div class="differential-content">
+                            <h3>Ateliê Próprio</h3>
+                            <p>Nosso ateliê exclusivo em São Paulo concentra todos os processos de criação, desde o design inicial até o acabamento final. Controle total sobre cada detalhe garante qualidade incomparável.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="differential-item">
+                        <div class="differential-number">02</div>
+                        <div class="differential-content">
+                            <h3>Mestres Artesãos</h3>
+                            <p>Equipe especializada com décadas de experiência em técnicas tradicionais europeias. Cada mestre domina segredos ancestrais transmitidos através de gerações de joalheiros.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="differential-item">
+                        <div class="differential-number">03</div>
+                        <div class="differential-content">
+                            <h3>Sourcing Exclusivo</h3>
+                            <p>Relacionamentos diretos com mineradores e fornecedores certificados mundialmente. Acesso privilegiado às gemas mais raras antes mesmo de chegarem ao mercado internacional.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="differential-item">
+                        <div class="differential-number">04</div>
+                        <div class="differential-content">
+                            <h3>Tecnologia Avançada</h3>
+                            <p>Fusão perfeita entre tradição e inovação. Utilizamos tecnologia CAD 3D e microscopia avançada para garantir precisão absoluta em cada criação sem perder a alma artesanal.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="differentials-visual">
+                    <div class="differential-visual-element"></div>
+                    <div class="differential-visual-element"></div>
+                    <div class="differential-visual-element"></div>
                 </div>
             </div>
         </div>
